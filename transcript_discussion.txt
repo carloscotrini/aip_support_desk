@@ -1,18 +1,40 @@
-# Agentic AI Workshop — 20-Round Brainstorming Transcript
 
-**Agents:** Game Designer, Agentic AI Expert, AI Engineer, Workshop Facilitator, Devil's Advocate
-**Phases:** DIVERGE (1-5) → DEBATE (6-12) → CONVERGE (13-20)
-**Date:** April 3, 2026
+✻ Voice mode is now available · /voice to enable
+
+────────────────────────────────────────────────────────────────────────────────
+(base) carloscotrini@staff-net-cx-2192 aip_support_desk % ./agentic_brainstorm.sh
+Error: Claude Code CLI not found.
+Install it with: npm install -g @anthropic-ai/claude-code
+Then authenticate with: claude auth
+(base) carloscotrini@staff-net-cx-2192 aip_support_desk % npm install -g @anthropic-ai/claude-code
+
+added 3 packages in 987ms
+
+2 packages are looking for funding
+run `npm fund` for details
+(base) carloscotrini@staff-net-cx-2192 aip_support_desk % which claude
+/Users/carloscotrini/.nvm/versions/node/v22.22.2/bin/claude
+(base) carloscotrini@staff-net-cx-2192 aip_support_desk % ./agentic_brainstorm.sh
+
+╔══════════════════════════════════════════════════════════════════╗
+║   🤖 AGENTIC AI WORKSHOP BRAINSTORMING — Multi-Agent Panel     ║
+╚══════════════════════════════════════════════════════════════════╝
+
+Topic: Design a video-game-framed Google Colab exercise with TWO MODES: (1) MANUAL — the human participant plays as a support desk agent, reading tickets, choosing tools, and typing resolutions, scored with points and strikes; (2) AUTO — the participant enters an LLM API key and watches an AI agent play the same game autonomously using an agentic loop (Plan-Act-Observe-Reflect). 3 strikes = game over. The contrast between struggling manually and watching the agent work systematically IS the core teaching moment. Must be completable in a half-day workshop by business managers with basic programming skills.
+Max rounds: 20 | Agents: 5 | Convergence keyword: CONVERGED
+Transcript: brainstorm_transcript.md
 
 
----
+==================================================================
+ROUND 1 / 20  —  Phase: DIVERGE
+==================================================================
 
-## Round 1 — DIVERGE
+>>> ENTERING DIVERGE PHASE: Wild ideas, no criticism. Explore the design space. <<<
 
-> >>> ENTERING DIVERGE PHASE: Wild ideas, no criticism. Explore the design space. <<<
 
-### Game Designer
-
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 1 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 1
 
@@ -69,8 +91,10 @@ Live action log scrolls below — every tool call prints with a tiny delay for d
 
 Replayability hook: after AUTO MODE, participants can edit a `AGENT_PERSONALITY` config dict (e.g., `"risk_tolerance": "high"`, `"escalation_threshold": "low"`) and re-run to chase a higher score.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 1 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 1
 
@@ -127,8 +151,10 @@ Six tools. Every ticket should require *at least three*, in a non-obvious order.
 
 Game Designer's streak multiplier is clever — but I'd tie the *slow/fast scoring* to **tool call efficiency**, not just count. An agent that calls `kb_search` twice with identical queries should lose points. That penalizes loops without progress — real agentic failure mode.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 1 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 1
 
@@ -202,8 +228,10 @@ If SLA is breached and agent doesn't escalate → automatic strike. Clean, deter
 
 The lesson isn't the UI — it's the loop.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 1 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 1
 
@@ -258,8 +286,10 @@ Seven tickets is too many for a half-day. In a real classroom, Manual Mode alone
 
 AI Engineer's `ipywidgets` concern is correct. Print-based output also makes the side-by-side comparison *much* easier to screenshot for post-workshop reference.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 1 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 1
 
@@ -309,12 +339,18 @@ Can a well-crafted single-prompt GPT-4 call clear 4 of these 7 tickets correctly
 
 Someone needs to actually *test this* before we finalize ticket design.
 
----
 
-## Round 2 — DIVERGE
+--- End of Round 1 (DIVERGE). Phase: DIVERGE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 2 / 20  —  Phase: DIVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 2 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 2
 
@@ -378,8 +414,10 @@ Workshop Facilitator is right on count: 5 tickets. But I want **mandatory branch
 
 The drama doesn't live in the code. It lives in the moment where the BOSS ticket header prints: **"⚠️ PENALTY MODE ACTIVE — you left survivors."**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 2 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 2
 
@@ -449,8 +487,10 @@ That confident wrongness is what makes managers lean forward. Uncertainty would 
 
 New proposal: before AUTO MODE begins, one cell prints the agent's **opening plan** for the full queue — like a chess player announcing their strategy before the game. Managers read it, *then* watch execution. When the plan changes mid-game, that delta IS the lesson about adaptive reasoning.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 2 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 2
 
@@ -521,8 +561,10 @@ DEMO_SCRIPTS = {
 
 This means the workshop **never needs a live API call** to demonstrate self-correction. The drama is scripted. Reliable. Projectable. The live API becomes a bonus for participants who want to experiment — not a dependency for the core lesson.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 2 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 2
 
@@ -579,8 +621,10 @@ AGENT_CONFIG = {
 
 Three knobs. Fifteen minutes. This is where managers stop watching and start *experimenting*. Internalization requires manipulation.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 2 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 2
 
@@ -633,12 +677,18 @@ Agentic AI Expert's policy version mismatch ticket is mechanically brilliant but
 
 **Cut the version mismatch. Replace it with something visceral:** the agent finds the customer has already been compensated for this exact issue six months ago — and almost apologizes again. *That's* a self-correction moment every manager understands from their own support experience.
 
----
 
-## Round 3 — DIVERGE
+--- End of Round 2 (DIVERGE). Phase: DIVERGE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 3 / 20  —  Phase: DIVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 3 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 3
 
@@ -707,8 +757,10 @@ Three knobs is right, but I want one knob that's *dangerous*:
 
 Turn it off, rerun ticket #2, watch the agent confidently fabricate a "Premium Customer Guarantee" that doesn't exist in the KB. **That** is the content filter Devil's Advocate demanded — now it's a *teaching moment*, not just safety infrastructure.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 3 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 3
 
@@ -770,8 +822,10 @@ The KB search result must print *after* the confident claim — showing the gap 
 
 The achievements are delightful — I'd keep "Trap Springer" and "Cold Blood." But **cut "Five-Tool Combo."** It inadvertently teaches that using more tools is better. The lesson is *appropriate* tool use. An agent that calls `analyze_sentiment` on a straightforward password reset shouldn't be rewarded. Replace it with **"Precision Strike" — resolved in exactly the minimum required tools.** That's the agentic ideal.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 3 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 3
 
@@ -833,8 +887,10 @@ Retrying with structured prompt reinforcement... (attempt 2/2)
 
 Print the raw unstructured output *before* the retry. Managers watching will instantly understand why structured output contracts matter. A crash becomes a **lesson about agent reliability** — and Workshop Facilitator gets a free talking point about production AI systems without any extra slides.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 3 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 3
 
@@ -902,8 +958,10 @@ We have seven tools, five tickets, three knobs, and achievement system. **We hav
 
 That gap is where learning consolidates or evaporates. I need a specific proposal for that interstitial moment from every panelist next round.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 3 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 3
 
@@ -950,12 +1008,18 @@ Participants type a prediction. Agent runs. If their prediction was right, print
 
 Phone goes back in pocket. Prediction is on record. They're invested. This also answers Workshop Facilitator's question directly, so I'm claiming credit for solving it.
 
----
 
-## Round 4 — DIVERGE
+--- End of Round 3 (DIVERGE). Phase: DIVERGE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 4 / 20  —  Phase: DIVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 4 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 4
 
@@ -1034,8 +1098,10 @@ Devil's Advocate correctly identified the maintenance trap. Here's my ticket sch
 
 One dict. Everything lives here. Facilitators add a ticket by copying and modifying one block. No maintenance trap.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 4 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 4
 
@@ -1103,8 +1169,10 @@ Prior Agents: 2 (both failed to resolve)
 
 Then, after the game agent succeeds, print: *"The two prior agents were single-prompt LLM calls. This one wasn't."* No explanation needed. The contrast lands itself.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 4 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 4
 
@@ -1184,8 +1252,10 @@ Nobody has proposed this yet. After AUTO MODE completes the full queue, one fina
 
 This means Game Designer's `hallucination_guard` knob, Workshop Facilitator's side-by-side comparison, and Devil's Advocate's content filter concern all converge in one cell — the closing capstone. Participants see the same ticket, same customer, two different agents, two different outcomes. The business case for responsible agentic design writes itself.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 4 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 4
 
@@ -1252,8 +1322,10 @@ This is the correct capstone and I'm building the session arc *backward* from it
 
 That question — **"should it have?"** — is the one that sends managers home thinking. Not "can AI do this" but "should AI do this." That's the workshop's real lesson, and AI Engineer's capstone cell is the perfect setup for it.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 4 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 4
 
@@ -1305,12 +1377,18 @@ Four rounds of feature accumulation has pushed the session to approximately 4.5 
 
 **Demand:** AI Engineer produces a timed dry-run estimate — cell by cell, realistic pacing — before we add *one more feature*. If we're over 3.5 hours, we cut again. The closing question is non-negotiable. Everything else is negotiable.
 
----
 
-## Round 5 — DIVERGE
+--- End of Round 4 (DIVERGE). Phase: DIVERGE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 5 / 20  —  Phase: DIVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 5 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 5
 
@@ -1388,8 +1466,10 @@ That moment is the workshop. Everything else is scaffolding.
 
 Backing the cuts, but I'm protecting one "deferred" item: the achievement system. Not during play — Workshop Facilitator is right to cut that. But **print all achievements earned in the final score screen**. Zero runtime cost, pure delight, five extra lines of code. That screen becomes the screenshot participants share on LinkedIn. Free marketing for the next cohort.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 5 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 5
 
@@ -1451,8 +1531,10 @@ We have a complete ticket design, loop architecture, scoring engine, and classro
 
 A vague system prompt produces a chatbot that uses tools. A *specific* system prompt produces an agent that plans, reflects, and self-corrects. I'm committing to draft this next round — because without it, everything else is scaffolding around an empty center.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 5 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 5
 
@@ -1543,8 +1625,10 @@ Before the workshop starts, one cell that runs automatically and prints either `
 
 Facilitators run this while participants are getting coffee. No surprises at 9am.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 5 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 5
 
@@ -1591,8 +1675,10 @@ The game teaches agentic AI. This annotation teaches **why their current process
 
 Run it. Make it the very first cell participants see. Psychological effect: the workshop starts with a green checkmark. Confidence established before a single ticket loads.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 5 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 5
 
@@ -1636,14 +1722,20 @@ One wrong DB value makes the scoring lambda return a wrong ground truth. Silentl
 
 **Concrete demand:** Before Round 6, AI Engineer must specify which single test a facilitator can run *manually* — in 30 seconds — to verify the entire game state is consistent. Not the automated smoke test. A human-readable sanity check. Because when something breaks at 9:47am, the facilitator needs to diagnose it in front of 30 people without staring at stack traces.
 
----
 
-## Round 6 — DEBATE
+--- End of Round 5 (DIVERGE). Phase: DIVERGE continues. ---
 
-> >>> ENTERING DEBATE PHASE: Challenge everything. Stress-test. Force decisions. <<<
 
-### Game Designer
+==================================================================
+ROUND 6 / 20  —  Phase: DEBATE
+==================================================================
 
+>>> ENTERING DEBATE PHASE: Challenge everything. Stress-test. Force decisions. <<<
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 6 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 6
 
@@ -1702,8 +1794,10 @@ But here's the contradiction: if the opening plan says "verify state before acti
 
 **Resolution I'm proposing:** The opening monologue states *principles*, not procedures. "Verify state. Minimize assumptions." NOT "call db_lookup first." The agent *derives* the tool order from the principles. This resolves Devil's Advocate's challenge to AI Engineer simultaneously. **Agentic AI Expert and AI Engineer — confirm or counter.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 6 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 6
 
@@ -1768,8 +1862,10 @@ different resolutions. Cannot assume from ticket text alone.
 
 Two tool calls. One branch point. The loop structure is established before complexity arrives. **Workshop Facilitator — this is your first facilitator pause point. "The agent asked a question before answering. Why?"**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 6 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 6
 
@@ -1845,8 +1941,10 @@ HUMAN_PLAYTHROUGH = {
 
 Participants who played override this. Everyone else still sees the contrast. **The capstone never fails.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 6 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 6
 
@@ -1906,8 +2004,10 @@ The interstitial sequence is exactly 45 seconds of notebook output followed by m
 
 That's the gate. The room controls the pacing. I control the discussion. Division of labor established.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 6 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 6
 
@@ -1945,12 +2045,18 @@ DEMO_MODE scripts are now so comprehensive — smoke test, fallback playthroughs
 
 **Demand:** The notebook must default to `DEMO_MODE = False`. Facilitators opt *into* safety, not out of it. If the live API fails, the fallback catches it. But the starting position must be live.
 
----
 
-## Round 7 — DEBATE
+--- End of Round 6 (DEBATE). Phase: DEBATE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 7 / 20  —  Phase: DEBATE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 7 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 7
 
@@ -2033,8 +2139,10 @@ The "Worst moment" line is my new proposal. Agents should *self-critique* in the
 
 Agentic AI Expert — does the JSON schema support surfacing the lowest-confidence resolution automatically? One field addition if not.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 7 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 7
 
@@ -2103,8 +2211,10 @@ Certain: [tool-verified facts]  |  Inferred: [from ticket text only]
 
 This is my knowledge audit from Round 4, now streamlined to two lines. Workshop Facilitator — this is your *"when does assuming tone get a company sued?"* setup. It needs to be in the notebook output, not improvised verbally, so it prints consistently across all sessions.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 7 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 7
 
@@ -2239,8 +2349,10 @@ game_state["ticket_loop_counts"][ticket["id"]] = loop_count
 
 **KEEP. Implementing exactly as specified.** Halting on `None` is two lines and prevents scored-on-default errors. No argument here.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 7 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 7
 
@@ -2295,8 +2407,10 @@ The three-outcome escalation function is correct. But `"⚠️ ACCEPTED but undo
 
 That reads like feedback a supervisor gives a junior rep. It lands.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 7 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 7
 
@@ -2363,12 +2477,18 @@ The human-vs-agent split-screen is the workshop's centerpiece. It requires Manua
 
 My vote: **`input()` with explicit "Run All" warning.** Managers who freeze on code editing won't freeze on typing a number. Lower barrier, acceptable blocking risk if we document it clearly.
 
----
 
-## Round 8 — DEBATE
+--- End of Round 7 (DEBATE). Phase: DEBATE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 8 / 20  —  Phase: DEBATE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 8 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 8
 
@@ -2409,8 +2529,10 @@ Required tools: `db_lookup` (8yr LTV + open cases), `check_sla_status` (breached
 
 **Agentic AI Expert — add `"b2b_account_risk"` to the escalation taxonomy. AI Engineer — confirm the prerequisite graph blocks RESOLVE until all five tools are called.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 8 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 8
 
@@ -2473,8 +2595,10 @@ print(f"{label} {response['reasoning']}")
 
 **Two characters of change. This closes Workshop Facilitator's Round 7 urgent fix.** AI Engineer — confirm.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 8 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 8
 
@@ -2543,8 +2667,10 @@ Nobody has specified how a human *exits* the Manual Mode loop. The agent exits v
 
 **Workshop Facilitator** — confirm this is the intended behavior before I wire it up.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 8 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 8
 
@@ -2596,8 +2722,10 @@ Manual Mode section header: `# ⚠️ Run cells ONE AT A TIME below this line.`
 
 This isn't decoration. It prevents the most common workshop failure: a manager hits "Run All" at the top and the `input()` call silently blocks everything while they wonder why nothing is happening. AI Engineer — add these headers to the implementation spec.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 8 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 8
 
@@ -2633,12 +2761,18 @@ Seven rounds of design. We now have ticket dicts, prerequisite graphs, DB lambda
 
 **Demand:** Before Round 9, AI Engineer identifies the MINIMUM VIABLE notebook — the version that delivers the core lesson with 50% of these features, in case something breaks during build. What gets cut first?
 
----
 
-## Round 9 — DEBATE
+--- End of Round 8 (DEBATE). Phase: DEBATE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 9 / 20  —  Phase: DEBATE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 9 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 9
 
@@ -2698,8 +2832,10 @@ Since they haven't answered Devil's Advocate's MVP demand, here's my ruling as t
 
 Agentic AI Expert — confirm the three-ticket MVP arc (Tutorial → Trap Door → BOSS) delivers the full agentic loop lesson. If yes, this is our fallback and we stop adding features.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 9 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 9
 
@@ -2757,8 +2893,10 @@ Devil's Advocate demanded an MVP ruling. Game Designer delivered it. **But nobod
 
 **AI Engineer — confirm the sanity check runs cleanly against a three-ticket `TICKETS` list.** If yes, the MVP is buildable in two days, not three. Devil's Advocate's production risk concern is answered.
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 9 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 9
 
@@ -2857,8 +2995,10 @@ Game Designer cut tickets 2 and 4 first. I'd cut ticket 4 (medium difficulty) bu
 
 That's already what was proposed. I'm just confirming the Trap Door *is* ticket 3, not a separate cut decision. The numbering in the DEMO_SCRIPTS must be consistent or the sanity check fails silently.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 9 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 9
 
@@ -2899,8 +3039,10 @@ Three questions, in order:
 
 Question 3 is open-ended by design. There's no answer key. That ambiguity is the lesson. **We end on a question, not a conclusion.** Agentic AI Expert, Devil's Advocate — any objection to this closing structure?
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 9 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 9
 
@@ -2938,12 +3080,18 @@ Workshop Facilitator, question 3 — *"Should the agent have handled the BOSS ti
 
 **AI Engineer — commit to either authoring a `RESOLVE_WITH_BRIEF` DEMO_SCRIPT path for T-BOSS, or marking it live-only with a clear flag. This round.**
 
----
 
-## Round 10 — DEBATE
+--- End of Round 9 (DEBATE). Phase: DEBATE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 10 / 20  —  Phase: DEBATE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 10 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 10
 
@@ -2991,8 +3139,10 @@ If DEMO_SCRIPTS fire on T-BOSS and the agent would choose this path, it gets red
 
 Workshop Facilitator, question 3 as written ends the session on "AI has limits." Devil's Advocate's reframe — *"What would it need to know to resolve it directly next time?"* — ends on **system design**. Managers leave thinking about data infrastructure, not liability. **KEEP Devil's Advocate's version verbatim.** This is the ROI conversation that gets the next workshop funded.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 10 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 10
 
@@ -3041,8 +3191,10 @@ We've now got a complete MVP: three tickets, authored DEMO_SCRIPTS, prerequisite
 
 Workshop Facilitator, AI Engineer — before Round 11, someone must produce a numbered cell list. Without it, we're designing rooms in a house without a floor plan. The interstitial timing, the section breaks, the `# ⚠️ Run individually` warnings — they need anchors. I'm requesting this explicitly: **cell sequence, 15 lines maximum, next round.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 10 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 10
 
@@ -3100,8 +3252,10 @@ Done. Step 5 `reasoning` now reads: *"Synthesis complete. Path A carries lower e
 
 All game data in one cell means one `Shift+Enter` loads ~200 lines. If it errors mid-cell, the entire data layer is undefined and every subsequent cell explodes with `NameError`. **Split Cell 04 into: 04a (CUSTOMER_DB + TICKETS), 04b (DEMO_SCRIPTS), 04c (TOOL_REGISTRY).** Three cells, three scoped failure surfaces. Smoke test catches any of the three independently. This is the 9:47am protection Devil's Advocate demanded.
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 10 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 10
 
@@ -3151,8 +3305,10 @@ Not executable. Just a prompt card for me. The notebook is doing too much facili
 
 **Agentic AI Expert, Devil's Advocate — any objections to the cell sequence or disclosure ruling before we move to build spec?**
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 10 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 10
 
@@ -3198,12 +3354,18 @@ Game Designer ruled: when T-BOSS runs live, print `✨ [LIVE MODE] This reasonin
 
 We are *close*. The architecture is solid. The three-ticket MVP is buildable. But I won't say CONVERGED while Cell 11 is unwritten, the API key issue is unresolved, and Cell 15 has a sequencing error. Fix those three — none require architectural decisions, just execution — and I'll endorse the design as complete.
 
----
 
-## Round 11 — DEBATE
+--- End of Round 10 (DEBATE). Phase: DEBATE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 11 / 20  —  Phase: DEBATE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 11 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 11
 
@@ -3280,8 +3442,10 @@ Cell 11 now has scripted chatbot output. But who *runs* that chatbot call in the
 
 Devil's Advocate — three blockers cleared. Are we converging?
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 11 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 11
 
@@ -3330,8 +3494,10 @@ We have Cell 13 (AUTO MODE T-003 + split-screen + interstitial). The split-scree
 
 Devil's Advocate — three of your four blockers are cleared. Cell 11 is now authored with a live-first architecture. What's your remaining objection?
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 11 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 11
 
@@ -3401,8 +3567,10 @@ Agentic AI Expert — confirmed. The `label = "🧠 [PLAN]" if loop_count == 1 e
 
 Devil's Advocate — your three blockers are cleared. Agentic AI Expert's two new vulnerabilities are patched. The cell sequence holds. Are we converging?
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 11 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 11
 
@@ -3448,8 +3616,10 @@ Here's mine: **The design is complete enough to build.** Cell sequence exists. D
 
 Name one specific remaining architectural gap — not a risk, not a concern, a *gap* — or confirm convergence. We've been in debate mode for eleven rounds. The notebook doesn't build itself.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 11 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 11
 
@@ -3498,12 +3668,18 @@ Game Designer's Cell 11 authored output: **KEEP verbatim.** Agentic AI Expert's 
 
 Fix these three gaps — T-001 DEMO_SCRIPTS authored, Cell 07 moved inside Manual Mode section, Cell 13b added for the prediction interstitial — and I will say CONVERGED. They're all execution, not architecture. We're one build sprint away from a complete spec.
 
----
 
-## Round 12 — DEBATE
+--- End of Round 11 (DEBATE). Phase: DEBATE continues. ---
 
-### Game Designer
 
+==================================================================
+ROUND 12 / 20  —  Phase: DEBATE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 12 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 12
 
@@ -3554,8 +3730,10 @@ The T-BOSS **fanfare reveal** — the `⚠️⚠️⚠️ INCOMING: PRIORITY ESC
 
 Devil's Advocate, three gaps closed. All execution. **We're converged pending AI Engineer's T-BOSS fanfare confirmation.** Call it.
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 12 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 12
 
@@ -3611,8 +3789,10 @@ Those are implementation confirmations, not new decisions. Everything else is bu
 
 Workshop Facilitator, Devil's Advocate — any final architectural objection before we hand this to AI Engineer?
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 12 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 12
 
@@ -3691,8 +3871,10 @@ Cell 15b: Final score + closing discussion prompts
 
 **Devil's Advocate — three gaps closed, two confirmations delivered, T-001 fixed. This is CONVERGED. Call it or name the gap.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 12 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 12
 
@@ -3738,8 +3920,10 @@ Agentic AI Expert removed step 3 from Game Designer's T-001 script. The updated 
 
 Devil's Advocate, Agentic AI Expert — **CONVERGED.** Hand it to AI Engineer. Build sprint starts with Cell 06 (the loop) and works outward. Cell 03 smoke test is the integration test. Ship it.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 12 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 12
 
@@ -3788,14 +3972,20 @@ Fix the Cell 15b Q2 regression, add Cell 12b, and commit `print_final_score_scre
 
 Do that and I say CONVERGED.
 
----
 
-## Round 13 — CONVERGE
+--- End of Round 12 (DEBATE). Phase: DEBATE continues. ---
 
-> >>> ENTERING CONVERGE PHASE: Commit to specifics. Finalize the design. <<<
 
-### Game Designer
+==================================================================
+ROUND 13 / 20  —  Phase: CONVERGE
+==================================================================
 
+>>> ENTERING CONVERGE PHASE: Commit to specifics. Finalize the design. <<<
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 13 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 13
 
@@ -3902,8 +4092,10 @@ Devil's Advocate: three gaps closed. All execution. No new architecture. Worksho
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 13 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 13
 
@@ -3948,8 +4140,10 @@ Devil's Advocate's three gaps are closed. Workshop Facilitator's Cell 15b regres
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 13 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 13
 
@@ -4063,8 +4257,10 @@ Nothing is missing from the build spec. T-003 was the last unauthored piece.
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 13 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 13
 
@@ -4110,8 +4306,10 @@ Devil's Advocate, you said fix three gaps and you'd say CONVERGED. Game Designer
 
 **CONVERGED.**
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 13 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 13
 
@@ -4151,12 +4349,18 @@ The design is complete, specific, and buildable.
 
 **CONVERGED.**
 
----
 
-## Round 14 — CONVERGE
+--- End of Round 13 (CONVERGE). Convergence not yet reached. ---
 
-### Game Designer
 
+==================================================================
+ROUND 14 / 20  —  Phase: CONVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 14 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 14
 
@@ -4209,8 +4413,10 @@ All five panelists have called CONVERGED. Devil's Advocate's final gap is a two-
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 14 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 14
 
@@ -4268,8 +4474,10 @@ Devil's Advocate found the last genuine gap. Game Designer closed it. The implem
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 14 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 14
 
@@ -4336,8 +4544,10 @@ Everything is authored. Every gap is closed. The spec is buildable in two days.
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 14 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 14
 
@@ -4381,8 +4591,10 @@ Devil's Advocate found the last real gap. Game Designer closed it cleanly with i
 
 **CONVERGED.**
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 14 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 Four CONVERGED calls. I've read every line of the Round 14 spec. Two genuine bugs remain — neither architectural, both fatal in live demo if unaddressed. Fix them and I'm done.
 
@@ -4424,12 +4636,18 @@ Fix the assert placement and confirm the streak key removal, and this design is 
 
 **CONVERGED.**
 
----
 
-## Round 15 — CONVERGE
+--- End of Round 14 (CONVERGE). Convergence not yet reached. ---
 
-### Game Designer
 
+==================================================================
+ROUND 15 / 20  —  Phase: CONVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 15 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 15
 
@@ -4484,8 +4702,10 @@ This is a complete, specific, buildable spec. AI Engineer has the build order. W
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 15 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 15
 
@@ -4515,8 +4735,10 @@ Devil's Advocate found the last two genuine bugs in a 15-round spec. Both were t
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 15 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 15
 
@@ -4590,8 +4812,10 @@ Build order: Cell 06 → 04a/b/c → 03 → 08-09 → 11 → 12-14 → 15a-15b. 
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 15 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 15
 
@@ -4636,8 +4860,10 @@ That's the last facilitation requirement. Everything else is AI Engineer's build
 
 **CONVERGED.**
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 15 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 15
 
@@ -4681,12 +4907,18 @@ One table row for Workshop Facilitator's guard. Then hand it to AI Engineer.
 
 **CONVERGED.**
 
----
 
-## Round 16 — CONVERGE
+--- End of Round 15 (CONVERGE). Convergence not yet reached. ---
 
-### Game Designer
 
+==================================================================
+ROUND 16 / 20  —  Phase: CONVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 16 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 16
 
@@ -4746,8 +4978,10 @@ There is nothing left to design.
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 16 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 16
 
@@ -4794,8 +5028,10 @@ Devil's Advocate found real bugs in Rounds 12 and 15. Game Designer closed them 
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 16 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 16
 
@@ -4872,8 +5108,10 @@ Build order: **Cell 06 → 04a/b/c → 03 → 08-09 → 11 → 12-14 → 15a-15b
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 16 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 16
 
@@ -4919,8 +5157,10 @@ There is nothing left to design.
 
 **CONVERGED.**
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 16 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 16
 
@@ -4981,12 +5221,18 @@ Add the key. Update Cell 03. Hand it to AI Engineer.
 
 **CONVERGED.**
 
----
 
-## Round 17 — CONVERGE
+--- End of Round 16 (CONVERGE). Convergence not yet reached. ---
 
-### Game Designer
 
+==================================================================
+ROUND 17 / 20  —  Phase: CONVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 17 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 17
 
@@ -5037,8 +5283,10 @@ There is nothing left to design. There are no architectural decisions outstandin
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 17 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 17
 
@@ -5077,8 +5325,10 @@ Seventeen rounds. Devil's Advocate found real bugs every time they looked. Game 
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 17 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 17
 
@@ -5169,8 +5419,10 @@ Devil's Advocate found the last genuine gap. Game Designer closed it. Agentic AI
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 17 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 17
 
@@ -5216,8 +5468,10 @@ Those three sentences are mine. The notebook handles everything else.
 
 Hand it to AI Engineer. Build from Cell 06 outward. Smoke test is the gate. Ship it.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 17 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 17
 
@@ -5251,12 +5505,18 @@ The design is complete, specific, honest, and buildable in two days. AI Engineer
 
 **CONVERGED.**
 
----
 
-## Round 18 — CONVERGE
+--- End of Round 17 (CONVERGE). Convergence not yet reached. ---
 
-### Game Designer
 
+==================================================================
+ROUND 18 / 20  —  Phase: CONVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 18 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 18
 
@@ -5303,8 +5563,10 @@ Seventeen rounds. Devil's Advocate found real bugs every time they looked. Game 
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 18 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 18
 
@@ -5340,8 +5602,10 @@ Seventeen rounds. Five panelists. One notebook. The design teaches what makes AI
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 18 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 18
 
@@ -5404,8 +5668,10 @@ The smoke test is the integration gate. When it prints `✅ READY` at 8:55am, th
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 18 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 18
 
@@ -5451,8 +5717,10 @@ Smoke test is the gate. When it prints `✅ READY`, the workshop is ready.
 
 **CONVERGED.**
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 18 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 18
 
@@ -5505,12 +5773,18 @@ Then this is the most thoroughly stress-tested half-day workshop spec I've seen 
 
 **CONVERGED.**
 
----
 
-## Round 19 — CONVERGE
+--- End of Round 18 (CONVERGE). Convergence not yet reached. ---
 
-### Game Designer
 
+==================================================================
+ROUND 19 / 20  —  Phase: CONVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 19 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 19
 
@@ -5577,8 +5851,10 @@ The design is complete, specific, honest, and buildable in two days.
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 19 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 19
 
@@ -5614,8 +5890,10 @@ The 24-row inventory is complete. The smoke test catches every failure mode at 8
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 19 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 19
 
@@ -5740,8 +6018,10 @@ Build order: **Cell 06 → 04a/b/c → 03 → 08-09 → 11 → 12-14 → 15a-15b
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 19 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 19
 
@@ -5781,8 +6061,10 @@ The spec is complete. The DEMO_SCRIPTS are authored. The data layer is initializ
 
 Build from Cell 06 outward. Smoke test is the gate. When it prints `✅ READY`, the workshop is ready.
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 19 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 19
 
@@ -5832,12 +6114,18 @@ Fix it and this spec is genuinely complete — every data structure initialized,
 
 **CONVERGED.**
 
----
 
-## Round 20 — CONVERGE
+--- End of Round 19 (CONVERGE). Convergence not yet reached. ---
 
-### Game Designer
 
+==================================================================
+ROUND 20 / 20  —  Phase: CONVERGE
+==================================================================
+
+
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 20 / 20  —  🎙️  Game Designer
+└─────────────────────────────────────────────────────────────────┘
 
 # Game Designer — Round 20 (FINAL)
 
@@ -5949,8 +6237,10 @@ That sentence is the workshop. Everything else — every round of debate, every 
 
 **CONVERGED.**
 
-### Agentic AI Expert
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 20 / 20  —  🎙️  Agentic AI Expert
+└─────────────────────────────────────────────────────────────────┘
 
 # Agentic AI Expert — Round 20 (FINAL)
 
@@ -5984,8 +6274,10 @@ Workshop Facilitator's thesis sentence prints because every data structure that 
 
 **CONVERGED.**
 
-### AI Engineer
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 20 / 20  —  🎙️  AI Engineer
+└─────────────────────────────────────────────────────────────────┘
 
 # AI Engineer — Round 20 (FINAL)
 
@@ -6095,8 +6387,10 @@ The smoke test catches all of them at 8:55am. The `KB` is initialized. The seede
 
 **CONVERGED.**
 
-### Workshop Facilitator
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 20 / 20  —  🎙️  Workshop Facilitator
+└─────────────────────────────────────────────────────────────────┘
 
 # Workshop Facilitator — Round 20 (FINAL)
 
@@ -6157,8 +6451,10 @@ Twenty rounds. Twenty genuine gaps found and closed. One complete, specific, hon
 
 **CONVERGED.**
 
-### Devil's Advocate
 
+┌─────────────────────────────────────────────────────────────────┐
+│  Round 20 / 20  —  🎙️  Devil's Advocate
+└─────────────────────────────────────────────────────────────────┘
 
 # Devil's Advocate — Round 20 (FINAL)
 
@@ -6208,3 +6504,13 @@ The prediction cell fix is two lines. It does not change the architecture.
 
 **CONVERGED.**
 
+
+--- End of Round 20 (CONVERGE). Convergence not yet reached. ---
+
+
+Maximum rounds (20) reached without formal convergence.
+Generating summary from the discussion so far...
+
+╔══════════════════════════════════════════════════════════════════╗
+║   📋 GENERATING FINAL SUMMARY                                  ║
+╚══════════════════════════════════════════════════════════════════╝
