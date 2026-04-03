@@ -10,9 +10,13 @@ set -euo pipefail
 # where an AI agent plays as a customer support desk agent resolving tickets.
 #
 # The brainstorming proceeds in THREE PHASES:
-#   Phase 1 — DIVERGE  (rounds 1-3): Wild ideas, no criticism. Explore the space.
-#   Phase 2 — DEBATE   (rounds 4-7): Challenge, push back, stress-test ideas.
-#   Phase 3 — CONVERGE (rounds 8+):  Synthesize, commit to specifics, finalize.
+#   Phase 1 — DIVERGE  (rounds 1-5):  Wild ideas, no criticism. Explore the space.
+#   Phase 2 — DEBATE   (rounds 6-12): Challenge, push back, stress-test ideas.
+#   Phase 3 — CONVERGE (rounds 13+):  Synthesize, commit to specifics, finalize.
+#
+# TOKEN OPTIMIZATION: Every SUMMARY_INTERVAL rounds (default 5), a rolling
+# summary compresses the full transcript. Agents then read the summary +
+# only the last 2 rounds of raw transcript, cutting token costs ~60-70%.
 #
 # Agents are encouraged to name-check each other, disagree explicitly, and
 # build on — or tear down — specific proposals.
@@ -28,6 +32,12 @@ MAX_ROUNDS="${MAX_ROUNDS:-20}"
 CONVERGENCE_KEYWORD="CONVERGED"
 TRANSCRIPT_FILE="brainstorm_transcript.md"
 SUMMARY_FILE="brainstorm_summary.md"
+RUNNING_SUMMARY_FILE="running_summary.md"
+
+# Rolling summary: compress transcript every N rounds to cut token costs.
+# Agents then read the summary + last RECENT_ROUNDS_WINDOW rounds of raw transcript.
+SUMMARY_INTERVAL="${SUMMARY_INTERVAL:-5}"
+RECENT_ROUNDS_WINDOW=2
 
 # Phase boundaries (longer diverge/debate to let ideas develop fully)
 DIVERGE_END=5
@@ -163,7 +173,33 @@ YOUR MISSION: Poke holes in everything. Find the weaknesses. Prevent groupthink.
 - Play the skeptical manager: 'My company already has a chatbot for support. Why is this better? Show me the ROI.'
 - Identify the SINGLE BIGGEST RISK to this exercise failing in a live workshop and propose a mitigation.
 - You are NOT here to be negative — you're here to make the final design BULLETPROOF by stress-testing every assumption.
-- When (and ONLY when) you believe the design has been thoroughly challenged and the group has solid answers to all critical questions, include the word CONVERGED."
+- When (and ONLY when) you believe the design has been thoroughly challenged and the group has solid answers to all critical questions, include the word CONVERGED.
+
+PHASE-SPECIFIC AUDIT CHECKLISTS — use the checklist matching the current phase. You MUST address at least 2 items from the relevant checklist in every response.
+
+DIVERGE PHASE CHECKLIST:
+[ ] Which proposals are mutually contradictory? Name the agents and the conflict.
+[ ] Which proposals sound good but are technically impossible in Google Colab?
+[ ] What's MISSING from the design space that nobody has proposed yet?
+[ ] Which ideas serve the game framing vs. which serve pedagogy — and are they in tension?
+[ ] Is any proposal just a rehash of a standard chatbot demo dressed up in game language?
+
+DEBATE PHASE CHECKLIST:
+[ ] What's the single weakest proposal still on the table? Name it and say why.
+[ ] What gets CUT first if the workshop runs 30 minutes behind schedule?
+[ ] Which tickets could a well-prompted single LLM call solve without tools? (If any can, the exercise fails.)
+[ ] Walk through one ticket end-to-end as a manager participant — what confuses or bores you?
+[ ] Are there data dependencies between proposed tools/structures that haven't been specified?
+[ ] Has anyone proposed error handling for malformed LLM output? What happens when JSON parsing fails?
+
+CONVERGE PHASE CHECKLIST:
+[ ] Walk through every notebook cell top-to-bottom. What breaks with Run All?
+[ ] Is every data structure referenced in code also initialized in a prior cell?
+[ ] Does DEMO_MODE cover every path that LIVE_MODE can take?
+[ ] What's the recovery plan if the LLM returns malformed output during a live demo?
+[ ] Is every scoring rule deterministic — no ambiguous judgment calls in the grading?
+[ ] Read the final design as a skeptical manager: 'Why can't my existing chatbot do this?'
+[ ] Are facilitator notes and verbal beats specified, or will the instructor have to improvise?"
 )
 
 # ---- Functions ----------------------------------------------------------------
@@ -239,6 +275,96 @@ RULES FOR THIS PHASE:
   esac
 }
 
+generate_running_summary() {
+  local round=$1
+
+  echo -e "${YELLOW}${BOLD}"
+  echo "  📝 Generating rolling summary after round $round..."
+  echo -e "${NC}"
+
+  local prompt_file
+  prompt_file=$(mktemp)
+  {
+    echo "You are a precise note-taker compressing a brainstorming transcript into a rolling design summary."
+    echo ""
+    echo "FULL TRANSCRIPT SO FAR:"
+    cat "$TRANSCRIPT_FILE"
+    echo ""
+    echo "---"
+    echo ""
+    cat <<'SUMMARY_INSTRUCTIONS'
+Compress the entire discussion into a ROLLING DESIGN SUMMARY (max 2000 words). Structure it as:
+
+## DECISIONS LOCKED
+List every design decision that the group has agreed on. Be specific — include exact names, numbers, mechanics.
+
+## PROPOSALS STILL OPEN
+List proposals that were made but not yet confirmed or cut. Note who proposed each one.
+
+## PROPOSALS CUT
+List ideas that were explicitly rejected and why (so agents don't re-propose them).
+
+## OPEN QUESTIONS
+List unresolved debates, contradictions, or gaps that need resolution.
+
+## KEY CONSTRAINTS
+List any technical, pedagogical, or scope constraints that have been established.
+
+RULES:
+- Attribute proposals to the agent who made them (by name).
+- Preserve SPECIFIC details: ticket text, tool signatures, scoring numbers, cell structures.
+- Do NOT editorialize or add new ideas — just compress what was said.
+- If two agents disagreed on something and it wasn't resolved, note BOTH positions.
+SUMMARY_INSTRUCTIONS
+  } > "$prompt_file"
+
+  local summary
+  summary=$(claude -p \
+    --system-prompt "You are a precise, neutral summarizer. Compress without losing specifics. Attribute everything." \
+    --max-turns 1 \
+    --model sonnet < "$prompt_file" 2>/dev/null) || {
+    rm -f "$prompt_file"
+    echo -e "${RED}  [Error generating rolling summary — agents will use full transcript]${NC}"
+    return 1
+  }
+
+  rm -f "$prompt_file"
+
+  # Write the rolling summary
+  {
+    echo "# Rolling Design Summary (after Round $round)"
+    echo ""
+    echo "*(Auto-generated — compresses all discussion through round $round)*"
+    echo ""
+    echo "$summary"
+  } > "$RUNNING_SUMMARY_FILE"
+
+  echo -e "${GREEN}  Rolling summary saved ($RUNNING_SUMMARY_FILE)${NC}"
+}
+
+get_recent_transcript() {
+  # Extract the last N rounds of raw transcript from $TRANSCRIPT_FILE.
+  # Uses the "## Round" markers to find where recent rounds start.
+  local current_round=$1
+  local window=$2
+  local first_recent_round=$(( current_round - window + 1 ))
+  if [[ $first_recent_round -lt 1 ]]; then
+    first_recent_round=1
+  fi
+
+  # Find the line number where "## Round <first_recent_round>" starts and tail from there
+  local start_pattern="## Round $first_recent_round "
+  local line_num
+  line_num=$(grep -n "$start_pattern" "$TRANSCRIPT_FILE" | head -1 | cut -d: -f1)
+
+  if [[ -n "$line_num" ]]; then
+    tail -n +"$line_num" "$TRANSCRIPT_FILE"
+  else
+    # Fallback: return the full transcript
+    cat "$TRANSCRIPT_FILE"
+  fi
+}
+
 invoke_agent() {
   local agent_idx=$1
   local round=$2
@@ -257,7 +383,7 @@ invoke_agent() {
   fi
 
   # Write the prompt to a temp file to avoid ARG_MAX limits with large transcripts.
-  # The transcript is read from the file on disk, not from a shell variable.
+  # If a rolling summary exists, use it + recent rounds instead of the full transcript.
   local prompt_file
   prompt_file=$(mktemp)
   {
@@ -265,12 +391,24 @@ invoke_agent() {
     echo ""
     echo "CURRENT ROUND: $round of $MAX_ROUNDS"
     echo ""
-    echo "CONVERSATION SO FAR:"
-    cat "$TRANSCRIPT_FILE"
+
+    if [[ -f "$RUNNING_SUMMARY_FILE" ]]; then
+      echo "DESIGN SUMMARY (compressed from earlier rounds):"
+      cat "$RUNNING_SUMMARY_FILE"
+      echo ""
+      echo "---"
+      echo ""
+      echo "RECENT DISCUSSION (last $RECENT_ROUNDS_WINDOW rounds — raw transcript):"
+      get_recent_transcript "$round" "$RECENT_ROUNDS_WINDOW"
+    else
+      echo "CONVERSATION SO FAR:"
+      cat "$TRANSCRIPT_FILE"
+    fi
+
     echo ""
     echo "---"
     echo ""
-    echo "You are the $name. Read the FULL conversation above carefully."
+    echo "You are the $name. Read the context above carefully."
     echo ""
     echo "REMEMBER: Reference other panelists BY NAME. Be specific. Be direct. Advance the design."
     echo ""
@@ -473,6 +611,11 @@ main() {
         echo ""
       } >> "$TRANSCRIPT_FILE"
     done
+
+    # Generate rolling summary every SUMMARY_INTERVAL rounds
+    if (( round % SUMMARY_INTERVAL == 0 )); then
+      generate_running_summary "$round"
+    fi
 
     # Check convergence only in CONVERGE phase
     if [[ "$phase" == "CONVERGE" ]]; then
