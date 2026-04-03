@@ -243,7 +243,7 @@ invoke_agent() {
   local agent_idx=$1
   local round=$2
   local topic="$3"
-  local transcript="$4"
+  # $4 is unused — we read from TRANSCRIPT_FILE instead to avoid ARG_MAX
   local system_prompt="${AGENT_SYSTEM_PROMPTS[$agent_idx]}"
   local name="${AGENT_NAMES[$agent_idx]}"
   local phase
@@ -251,31 +251,45 @@ invoke_agent() {
   local phase_instructions
   phase_instructions=$(get_phase_instructions "$phase")
 
-  local user_prompt="$phase_instructions
+  local converge_hint=""
+  if [[ "$phase" == "CONVERGE" ]]; then
+    converge_hint="If you believe the group has a complete, actionable plan — with specific ticket text, scoring rules, tool designs, and notebook structure — include the word CONVERGED."
+  fi
 
-CURRENT ROUND: $round of $MAX_ROUNDS
+  # Write the prompt to a temp file to avoid ARG_MAX limits with large transcripts.
+  # The transcript is read from the file on disk, not from a shell variable.
+  local prompt_file
+  prompt_file=$(mktemp)
+  {
+    echo "$phase_instructions"
+    echo ""
+    echo "CURRENT ROUND: $round of $MAX_ROUNDS"
+    echo ""
+    echo "CONVERSATION SO FAR:"
+    cat "$TRANSCRIPT_FILE"
+    echo ""
+    echo "---"
+    echo ""
+    echo "You are the $name. Read the FULL conversation above carefully."
+    echo ""
+    echo "REMEMBER: Reference other panelists BY NAME. Be specific. Be direct. Advance the design."
+    echo ""
+    echo "$converge_hint"
+  } > "$prompt_file"
 
-CONVERSATION SO FAR:
-$transcript
-
----
-
-You are the $name. Read the FULL conversation above carefully.
-
-REMEMBER: Reference other panelists BY NAME. Be specific. Be direct. Advance the design.
-
-$(if [[ "$phase" == "CONVERGE" ]]; then echo "If you believe the group has a complete, actionable plan — with specific ticket text, scoring rules, tool designs, and notebook structure — include the word CONVERGED."; fi)"
-
-  # Call Claude Code in non-interactive mode
+  # Pipe prompt via stdin to avoid ARG_MAX limits with large transcripts.
+  # claude -p (with no positional prompt arg) reads from stdin.
   local response
-  response=$(claude -p "$user_prompt" \
+  response=$(claude -p \
     --system-prompt "$system_prompt" \
     --max-turns 1 \
-    --model sonnet 2>/dev/null) || {
+    --model sonnet < "$prompt_file" 2>/dev/null) || {
+    rm -f "$prompt_file"
     echo "[Error invoking $name — skipping this turn]"
     return 1
   }
 
+  rm -f "$prompt_file"
   echo "$response"
 }
 
@@ -284,8 +298,9 @@ check_convergence() {
   local round=$2
 
   # Count how many agents said CONVERGED in the latest round
+  # Match the actual format: --- ROUND N (PHASE) ---
   local latest_round_text
-  latest_round_text=$(echo "$transcript" | sed -n "/--- ROUND $round ---/,\$p")
+  latest_round_text=$(echo "$transcript" | sed -n "/--- ROUND $round /,\$p")
   local converge_count
   converge_count=$(echo "$latest_round_text" | grep -ci "$CONVERGENCE_KEYWORD" || true)
 
@@ -306,15 +321,20 @@ generate_summary() {
   echo "╚══════════════════════════════════════════════════════════════════╝"
   echo -e "${NC}"
 
-  local summary_prompt="You are a senior facilitator summarizing a multi-agent brainstorming session. The session designed a VIDEO-GAME-FRAMED Google Colab exercise teaching managers about Agentic AI through a customer support desk game.
-
-TOPIC: $topic
-
-FULL TRANSCRIPT:
-$transcript
-
----
-
+  # Write the summary prompt to a temp file — the transcript can be huge after 20 rounds.
+  local prompt_file
+  prompt_file=$(mktemp)
+  {
+    echo "You are a senior facilitator summarizing a multi-agent brainstorming session. The session designed a VIDEO-GAME-FRAMED Google Colab exercise teaching managers about Agentic AI through a customer support desk game."
+    echo ""
+    echo "TOPIC: $topic"
+    echo ""
+    echo "FULL TRANSCRIPT:"
+    cat "$TRANSCRIPT_FILE"
+    echo ""
+    echo "---"
+    echo ""
+    cat <<'SECTIONS'
 Produce a structured FINAL DESIGN DOCUMENT with these sections:
 
 1. GAME CONCEPT: Overview — video game framing, scoring, strikes, game over mechanic.
@@ -332,16 +352,21 @@ Produce a structured FINAL DESIGN DOCUMENT with these sections:
 13. RISKS & MITIGATIONS: What could go wrong in a live workshop and how to handle it.
 14. UNRESOLVED QUESTIONS: Any remaining debates or alternatives.
 
-Be EXTREMELY concrete. Include actual ticket text, actual tool signatures, actual scoring numbers. This document will be used to BUILD the notebook."
+Be EXTREMELY concrete. Include actual ticket text, actual tool signatures, actual scoring numbers. This document will be used to BUILD the notebook.
+SECTIONS
+  } > "$prompt_file"
 
   local summary
-  summary=$(claude -p "$summary_prompt" \
+  summary=$(claude -p \
     --system-prompt "You are a precise, structured facilitator. Produce a clear, actionable design document. Include concrete specifics — actual text, actual numbers, actual code signatures. No hand-waving." \
     --max-turns 1 \
-    --model sonnet 2>/dev/null) || {
+    --model sonnet < "$prompt_file" 2>/dev/null) || {
+    rm -f "$prompt_file"
     echo "[Error generating summary]"
     return 1
   }
+
+  rm -f "$prompt_file"
 
   echo "$summary"
 
