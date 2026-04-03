@@ -24,14 +24,14 @@ set -euo pipefail
 #   - Claude Code CLI installed and authenticated (npm install -g @anthropic-ai/claude-code)
 # ==============================================================================
 
-MAX_ROUNDS="${MAX_ROUNDS:-12}"
+MAX_ROUNDS="${MAX_ROUNDS:-20}"
 CONVERGENCE_KEYWORD="CONVERGED"
 TRANSCRIPT_FILE="brainstorm_transcript.md"
 SUMMARY_FILE="brainstorm_summary.md"
 
-# Phase boundaries
-DIVERGE_END=3
-DEBATE_END=7
+# Phase boundaries (longer diverge/debate to let ideas develop fully)
+DIVERGE_END=5
+DEBATE_END=12
 
 # Colors for terminal output
 RED='\033[0;31m'
@@ -54,7 +54,11 @@ The exercise is framed as a VIDEO GAME. The participant's AI agent plays as a cu
 
 The game must be CHALLENGING ENOUGH that a naive single-prompt LLM call fails — the agent needs planning, tool use, self-correction, and multi-step reasoning to succeed. But SIMPLE ENOUGH that you can explain and run it in a half-day workshop using Google Colab.
 
-The agent MUST use a real LLM API key (Claude or OpenAI). The exercise must illustrate: planning, task decomposition, tool selection, observation, reflection, self-correction, and knowing when to escalate. RAG is ONE tool among several, not the centerpiece.
+TWO PLAY MODES (both are essential):
+1. MANUAL MODE: The HUMAN plays the game. They read each ticket, decide which tools to use (KB search, DB lookup, email, escalate, etc.), and type their resolution. The system scores them — points for correct resolutions, strikes for mistakes. This mode teaches managers what the TASK feels like and why it's hard.
+2. AUTO MODE: The participant enters an LLM API key (Claude or OpenAI), and an AI AGENT plays the game automatically. The agent loops (Plan → Act → Observe → Reflect), picks tools, and resolves tickets while the participant WATCHES. The agent's inner reasoning is printed step-by-step. This mode teaches what AGENTIC AI is and why it's powerful.
+
+The contrast between these two modes IS the lesson: first you struggle with it yourself, then you watch an agent handle it systematically. The exercise must illustrate: planning, task decomposition, tool selection, observation, reflection, self-correction, and knowing when to escalate. RAG is ONE tool among several, not the centerpiece.
 
 DEBATE RULES:
 - Always reference other panelists BY NAME when agreeing or disagreeing.
@@ -313,19 +317,20 @@ $transcript
 
 Produce a structured FINAL DESIGN DOCUMENT with these sections:
 
-1. GAME CONCEPT: One-paragraph overview — the video game framing, scoring, strikes, game over mechanic.
-2. FICTIONAL COMPANY & SCENARIO: The company, product, and why it's relatable to managers.
-3. TICKET QUEUE (THE LEVELS): Each ticket with: text, difficulty, required tools, what makes it tricky, how many points it's worth, what earns a strike.
-4. SCORING & STRIKE RULES: Exact rules for points, strikes, and game over. What constitutes a 'mistake'?
-5. AGENT TOOLS: Tool registry with signatures and what each tool returns.
-6. KNOWLEDGE BASE: What documents are in the KB, including intentional traps/gaps.
-7. AGENT LOOP DESIGN: The Plan→Act→Observe→Reflect loop — how it works in code.
-8. NOTEBOOK STRUCTURE: Cell-by-cell outline with timing and facilitator notes.
-9. SIDE-BY-SIDE MOMENT: How the 'naive LLM vs. agent' contrast works.
-10. KEY AGENTIC TEACHING MOMENTS: Specific moments that teach planning, self-correction, escalation, etc.
-11. TECHNICAL REQUIREMENTS: Dependencies, API key handling, DEMO_MODE.
-12. RISKS & MITIGATIONS: What could go wrong in a live workshop and how to handle it.
-13. UNRESOLVED QUESTIONS: Any remaining debates or alternatives.
+1. GAME CONCEPT: Overview — video game framing, scoring, strikes, game over mechanic.
+2. MANUAL MODE DESIGN: How the human plays — UI, input flow, tool selection, scoring feedback.
+3. AUTO MODE DESIGN: How the AI agent plays — the Plan→Act→Observe→Reflect loop, visible reasoning, API key setup.
+4. THE CONTRAST: How manual vs. auto mode creates the core teaching moment.
+5. FICTIONAL COMPANY & SCENARIO: The company, product, and why it's relatable to managers.
+6. TICKET QUEUE (THE LEVELS): Each ticket with: text, difficulty, required tools, what makes it tricky, points, what earns a strike.
+7. SCORING & STRIKE RULES: Exact rules for points, strikes, and game over. What counts as a 'mistake'?
+8. AGENT TOOLS: Tool registry with signatures and what each tool returns.
+9. KNOWLEDGE BASE: Documents in the KB, including intentional traps/gaps.
+10. NOTEBOOK STRUCTURE: Cell-by-cell outline with timing and facilitator notes.
+11. KEY AGENTIC TEACHING MOMENTS: Specific moments that teach planning, self-correction, escalation, etc.
+12. TECHNICAL REQUIREMENTS: Dependencies, API key handling, DEMO_MODE fallback.
+13. RISKS & MITIGATIONS: What could go wrong in a live workshop and how to handle it.
+14. UNRESOLVED QUESTIONS: Any remaining debates or alternatives.
 
 Be EXTREMELY concrete. Include actual ticket text, actual tool signatures, actual scoring numbers. This document will be used to BUILD the notebook."
 
@@ -358,10 +363,10 @@ Be EXTREMELY concrete. Include actual ticket text, actual tool signatures, actua
 
 # ---- Main ---------------------------------------------------------------------
 
-DEFAULT_TOPIC="Design a video-game-framed Google Colab exercise where an AI agent plays as a customer support desk agent. It receives a queue of tickets, earns points for correct resolutions, gets strikes for mistakes, and faces GAME OVER after 3 strikes. Must use a real LLM API key, demonstrate planning/tool-use/self-correction, and be completable in a half-day workshop by business managers with basic programming skills."
+TOPIC="Design a video-game-framed Google Colab exercise with TWO MODES: (1) MANUAL — the human participant plays as a support desk agent, reading tickets, choosing tools, and typing resolutions, scored with points and strikes; (2) AUTO — the participant enters an LLM API key and watches an AI agent play the same game autonomously using an agentic loop (Plan-Act-Observe-Reflect). 3 strikes = game over. The contrast between struggling manually and watching the agent work systematically IS the core teaching moment. Must be completable in a half-day workshop by business managers with basic programming skills."
 
 main() {
-  local topic="${1:-$DEFAULT_TOPIC}"
+  local topic="$TOPIC"
   local transcript=""
   local converged=false
   local final_round=0
