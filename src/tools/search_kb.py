@@ -5,7 +5,7 @@ search_kb tool — cosine similarity search over pre-computed KB embeddings.
 
 from sklearn.metrics.pairwise import cosine_similarity
 
-from src.data.embeddings import load_embeddings
+from src.data.embeddings import MODEL_NAME, load_embeddings
 
 # Lazy-loaded module-level cache
 _model = None
@@ -20,7 +20,7 @@ def _ensure_loaded():
         _embeddings, _chunks = load_embeddings()
     if _model is None:
         from sentence_transformers import SentenceTransformer
-        _model = SentenceTransformer("all-MiniLM-L6-v2")
+        _model = SentenceTransformer(MODEL_NAME)
 
 
 def search_kb(query: str, top_k: int = 3) -> list[dict]:
