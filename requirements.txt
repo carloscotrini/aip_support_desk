@@ -1,6 +1,6 @@
 anthropic
-numpy
-sentence-transformers
+numpy<2
+sentence-transformers<4
 scikit-learn
 pytest
 jupyter
