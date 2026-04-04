@@ -5,12 +5,19 @@ An interactive Jupyter notebook exercise for teaching **agentic AI** concepts. P
 ## Quick start
 
 ```bash
-# 1. Install dependencies
-pip install numpy sentence-transformers scikit-learn pytest jupyter
+# 1. Create a virtual environment (recommended)
+python -m venv .venv
+source .venv/bin/activate        # macOS / Linux
+# .venv\Scripts\activate         # Windows
 
-# 2. Run the notebook
+# 2. Install dependencies
+pip install -r requirements.txt
+
+# 3. Run the notebook
 jupyter notebook notebook.ipynb
 ```
+
+> **Note:** You can also use an existing Conda or virtualenv environment — just make sure to `pip install -r requirements.txt` inside it before launching the notebook.
 
 Then run each cell top-to-bottom. Everything works in **demo mode** — no API key needed.
 
@@ -56,8 +63,4 @@ In Section 9, change the ticket ID to explore different scenarios:
 
 ## Live mode (optional)
 
-To use a real LLM instead of pre-scripted responses, change `demo_mode=False` in the setup cell and provide an Anthropic API key:
-
-```bash
-pip install anthropic
-```
+To use a real LLM instead of pre-scripted responses, change `demo_mode=False` in the setup cell and provide an Anthropic API key. The `anthropic` package is already included in `requirements.txt`.
