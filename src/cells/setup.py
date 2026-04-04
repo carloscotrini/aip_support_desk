@@ -1,48 +1,112 @@
-# src/cells/setup.py
-"""
-Setup cell for the AIP Support Desk notebook.
+"""Setup cell — dependency check, API key config, embedding loading."""
 
-Usage:
-    from src.cells.setup import initialize, DEMO_MODE
-"""
+import getpass
 
-import json
+DEMO_MODE = True  # Default: pre-scripted responses, no API key needed
 
-DEMO_MODE = False
+DEPENDENCIES = [
+    "anthropic",
+    "sentence-transformers",
+    "scikit-learn",
+]
 
 
-def initialize(demo_mode: bool = True) -> None:
-    """Initialize the support desk environment.
+def install_dependencies() -> None:
+    """Print pip install commands and verify core imports."""
+    print("[SETUP] Required dependencies:")
+    for dep in DEPENDENCIES:
+        print(f"  !pip install -q {dep}")
 
-    - Sets DEMO_MODE flag
-    - Loads pre-computed embeddings
-    - Prints a status summary
+    # Verify imports are available
+    missing = []
+    for dep in DEPENDENCIES:
+        module_name = dep.replace("-", "_")
+        # scikit-learn imports as sklearn
+        if module_name == "scikit_learn":
+            module_name = "sklearn"
+        try:
+            __import__(module_name)
+        except ImportError:
+            missing.append(dep)
+
+    if missing:
+        print(f"\n[SETUP] ⚠ Missing packages: {', '.join(missing)}")
+        print("  Run the pip install commands above in a notebook cell.")
+    else:
+        print("\n[SETUP] All dependencies available.")
+
+
+def configure_api_key(demo_mode: bool = True) -> str | None:
+    """Prompt for API key in live mode; skip in demo mode."""
+    if demo_mode:
+        print("[SETUP] DEMO_MODE=True — using pre-scripted responses (no API key needed)")
+        return None
+
+    print("[SETUP] Live mode — enter your Anthropic API key:")
+    key = getpass.getpass("API key: ")
+    return key
+
+
+def initialize(demo_mode: bool = True) -> dict:
+    """
+    Run all setup steps and return a config dict.
+
+    Returns:
+        {
+            "demo_mode": bool,
+            "api_key": str | None,
+            "embeddings_loaded": bool,
+            "tools_available": list[str],
+        }
     """
     global DEMO_MODE
     DEMO_MODE = demo_mode
 
-    # Load embeddings
-    from src.data.embeddings import load_embeddings
-    embeddings, chunks = load_embeddings()
+    # 1. API key
+    api_key = configure_api_key(demo_mode)
 
-    # Verify core imports
-    from src.data.knowledge_base import KNOWLEDGE_BASE
-    from src.data.databases import CUSTOMER_DB, EMPLOYEE_DIRECTORY
-    from src.data.tickets import TICKETS
-    from src.tools.registry import TOOLS, TOOL_SCHEMAS
+    # 2. Load embeddings
+    embeddings_loaded = False
+    num_chunks = 0
+    num_docs = 0
+    try:
+        from src.data.embeddings import load_embeddings
+        _embeddings, chunks = load_embeddings()
+        embeddings_loaded = True
+        num_chunks = len(chunks)
+        num_docs = len({c["doc_id"] for c in chunks})
+    except Exception as e:
+        print(f"[SETUP] ⚠ Could not load embeddings: {e}")
 
-    print("=" * 60)
-    print("  Meridian Fleet Solutions — AIP Support Desk")
-    print("=" * 60)
+    # 3. Verify tool modules
+    tools_available: list[str] = []
+    try:
+        from src.tools.registry import get_tool_names
+        tools_available = get_tool_names()
+    except Exception as e:
+        print(f"[SETUP] ⚠ Could not load tools: {e}")
+
+    # 4. Print summary
+    mode_str = "DEMO (pre-scripted responses)" if demo_mode else "LIVE (Anthropic API)"
+    emb_str = f"Loaded ({num_chunks} chunks from {num_docs} KB documents)" if embeddings_loaded else "Not loaded"
+
+    w = 58
     print()
-    print(f"  Demo mode:        {'ON' if demo_mode else 'OFF (API key required)'}")
-    print(f"  KB documents:     {len(KNOWLEDGE_BASE)}")
-    print(f"  KB chunks:        {len(chunks)}")
-    print(f"  Embedding dims:   {embeddings.shape[1]}")
-    print(f"  Customers:        {len(CUSTOMER_DB)}")
-    print(f"  Employees:        {len(EMPLOYEE_DIRECTORY)}")
-    print(f"  Tickets:          {len(TICKETS)}")
-    print(f"  Tools available:  {len(TOOLS)}")
-    print()
-    print("  Status: READY ✓")
-    print("=" * 60)
+    print(f"╔{'═' * w}╗")
+    print(f"║  {'✅ SETUP COMPLETE':<{w - 2}}║")
+    print(f"╠{'═' * w}╣")
+    print(f"║  {'Mode:':<14}{mode_str:<{w - 16}}║")
+    print(f"║  {'Embeddings:':<14}{emb_str:<{w - 16}}║")
+    print(f"║  {'Tools:':<14}{len(tools_available)} available{' ' * (w - 16 - len(str(len(tools_available))) - 10)}║")
+    for name in tools_available:
+        print(f"║    • {name:<{w - 6}}║")
+    print(f"╠{'═' * w}╣")
+    print(f"║  {'Ready! Change ACTIVE_TICKET and run the cells below.':<{w - 2}}║")
+    print(f"╚{'═' * w}╝")
+
+    return {
+        "demo_mode": demo_mode,
+        "api_key": api_key,
+        "embeddings_loaded": embeddings_loaded,
+        "tools_available": tools_available,
+    }
