@@ -1,12 +1,10 @@
-# src/tools/registry.py
-"""
-Tool registry — central dispatch for all agent tools.
-Collects schemas and provides a single dispatch_tool() entry point.
-"""
+"""Unified tool registry for the AIP Support Desk agent."""
+
+import json
 
 from src.tools.search_kb import search_kb, SEARCH_KB_SCHEMA
 from src.tools.customer_db import query_customer_db, QUERY_CUSTOMER_DB_SCHEMA
-from src.tools.communication import send_email, SEND_EMAIL_SCHEMA, request_info, REQUEST_INFO_SCHEMA
+from src.tools.communication import send_email, request_info, SEND_EMAIL_SCHEMA, REQUEST_INFO_SCHEMA
 from src.tools.escalation import escalate, ESCALATE_SCHEMA
 
 
@@ -56,22 +54,12 @@ CHECK_OPEN_CASES_SCHEMA = {
 # Registry
 # ---------------------------------------------------------------------------
 
-TOOL_SCHEMAS = [
-    SEARCH_KB_SCHEMA,
-    QUERY_CUSTOMER_DB_SCHEMA,
-    SEND_EMAIL_SCHEMA,
-    REQUEST_INFO_SCHEMA,
-    ESCALATE_SCHEMA,
-    CHECK_SLA_STATUS_SCHEMA,
-    CHECK_OPEN_CASES_SCHEMA,
-]
-
-_TOOL_FUNCTIONS = {
+TOOLS = {
     "search_kb": search_kb,
     "query_customer_db": query_customer_db,
     "send_email": send_email,
-    "request_info": request_info,
     "escalate": escalate,
+    "request_info": request_info,
     "check_sla_status": check_sla_status,
     "check_open_cases": check_open_cases,
 }
@@ -83,14 +71,34 @@ _TOOL_ALIASES = {
     "email_draft": "send_email",
 }
 
+TOOL_SCHEMAS = [
+    SEARCH_KB_SCHEMA,
+    QUERY_CUSTOMER_DB_SCHEMA,
+    SEND_EMAIL_SCHEMA,
+    ESCALATE_SCHEMA,
+    REQUEST_INFO_SCHEMA,
+    CHECK_SLA_STATUS_SCHEMA,
+    CHECK_OPEN_CASES_SCHEMA,
+]
+
 
 def dispatch_tool(tool_name: str, **kwargs) -> dict:
-    """Dispatch a tool call by name. Returns the tool's result dict."""
+    """Look up and call a tool by name, returning its result dict."""
     # Resolve aliases
     canonical = _TOOL_ALIASES.get(tool_name, tool_name)
 
-    fn = _TOOL_FUNCTIONS.get(canonical)
-    if fn is None:
+    if canonical not in TOOLS:
         return {"error": f"Unknown tool: {tool_name}"}
 
-    return fn(**kwargs)
+    print(f"[DISPATCH] Calling tool: {canonical}")
+    print(f"[DISPATCH] Arguments: {json.dumps(kwargs, default=str)}")
+
+    try:
+        return TOOLS[canonical](**kwargs)
+    except Exception as e:
+        return {"error": str(e), "tool": canonical}
+
+
+def get_tool_names() -> list[str]:
+    """Return the list of available tool names."""
+    return list(TOOLS.keys())
