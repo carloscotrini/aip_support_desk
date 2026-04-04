@@ -12,12 +12,7 @@ DEPENDENCIES = [
 
 
 def install_dependencies() -> None:
-    """Print pip install commands and verify core imports."""
-    print("[SETUP] Required dependencies:")
-    for dep in DEPENDENCIES:
-        print(f"  !pip install -q {dep}")
-
-    # Verify imports are available
+    """Verify core imports are available; point to requirements.txt if not."""
     missing = []
     for dep in DEPENDENCIES:
         module_name = dep.replace("-", "_")
@@ -30,10 +25,11 @@ def install_dependencies() -> None:
             missing.append(dep)
 
     if missing:
-        print(f"\n[SETUP] ⚠ Missing packages: {', '.join(missing)}")
-        print("  Run the pip install commands above in a notebook cell.")
+        print(f"[SETUP] ⚠ Missing packages: {', '.join(missing)}")
+        print("  Install into your environment first:")
+        print("    pip install -r requirements.txt")
     else:
-        print("\n[SETUP] All dependencies available.")
+        print("[SETUP] All dependencies available.")
 
 
 def configure_api_key(demo_mode: bool = True) -> str | None:
